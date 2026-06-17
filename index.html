@@ -9,9 +9,9 @@
             background-color: #0f172a;
             color: #94a3b8;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 60px 20px;
             line-height: 1.8;
         }
 
@@ -31,9 +31,78 @@
             letter-spacing: -0.05em;
         }
 
+        .typewriter-container {
+            font-size: 1.2em;
+            color: #e2e8f0;
+            font-weight: 600;
+            margin-bottom: 25px;
+            min-height: 1.8em;
+        }
+
+        #typewriter-text {
+            color: #5eead4;
+        }
+
+        .cursor {
+            font-weight: 100;
+            color: #5eead4;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        h2 {
+            color: #e2e8f0;
+            font-size: 1.5em;
+            margin-top: 50px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 10px;
+        }
+
         p {
+            font-size: 1.05em;
+            margin-bottom: 20px;
+        }
+
+        .experience-item {
+            margin-bottom: 35px;
+        }
+
+        .job-title {
+            color: #e2e8f0;
+            font-weight: 600;
             font-size: 1.1em;
-            margin-bottom: 30px;
+            margin: 0;
+        }
+
+        .company {
+            color: #5eead4;
+        }
+
+        .time {
+            font-size: 0.85em;
+            color: #64748b;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background-color: #1e293b;
+            color: #5eead4;
+            font-family: monospace;
+            font-size: 0.85em;
+            padding: 4px 12px;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -42,7 +111,92 @@
     <span class="intro">Hi, my name is</span>
     <h1>Nicolas Peltonen</h1>
     
-    <p>I am an ICT student currently developing my skills across various technologies and learning the foundations of web programming.</p>
+    <div class="typewriter-container">
+        I specialize in <span id="typewriter-text"></span><span class="cursor">|</span>
+    </div>
+
+    <p>I am an ICT student focusing on software development. My hands-on background in electronics, fine mechanics, laboratory and industrial automation gives me a unique advantage in understanding complex systems from the hardware level up to the code.</p>
+
+    <h2>Education & Studies</h2>
+
+    <div class="experience-item">
+        <p class="job-title">ICT Student <span class="company">@ Taitotalo</span></p>
+        <span class="time">2026 — Present</span>
+        <p>Building core expertise in software development, web programming, and modern IT technologies.</p>
+    </div>
+
+    <div class="experience-item">
+        <p class="job-title">Technical Degree in Watchmaking and Fine Mechanics <span class="company">@ Vantaan ammattiopisto Varia</span></p>
+        <span class="time">2011 — 2016</span>
+        <p>Acquired a strong technical foundation in high-precision mechanics, micro-electronics, and analytical troubleshooting.</p>
+    </div>
+
+    <h2>Experience</h2>
+
+    <div class="experience-item">
+        <p class="job-title">Field Service Engineer <span class="company">@ Omron</span></p>
+        <span class="time">2023 — 2025</span>
+        <p>Maintained, configured, and repaired high-tech industrial robotics and automated systems across Europe, focusing on technical troubleshooting and field engineering.</p>
+    </div>
+
+    <div class="experience-item">
+        <p class="job-title">Product Support Engineer / Service Engineer / Manufacturing Technician <span class="company">@ Thermo Fisher Scientific</span></p>
+        <span class="time">2015 — 2022</span>
+        <p>Progressed through multiple roles from high-precision instrument manufacturing to global product support and field service for advanced LC/MS laboratory technologies.</p>
+    </div>
+
+    <h2>Skills</h2>
+    
+    <div class="skills-grid">
+        <div class="skill-tag">HTML5</div>
+        <div class="skill-tag">CSS3</div>
+        <div class="skill-tag">JavaScript</div>
+        <div class="skill-tag">Linux</div>
+        <div class="skill-tag">Problem Solving</div>
+        <div class="skill-tag">Laboratory Automation</div>
+        <div class="skill-tag">Industrial Automation</div>
+        <div class="skill-tag">LC/MS Technologies</div>
+        <div class="skill-tag">Fine Mechanics</div>
+        <div class="skill-tag">Electronics</div>
+    </div>
+
+    <script>
+        const words = ["software development.", "industrial automation.", "problem solving."];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const textElement = document.getElementById("typewriter-text");
+
+        function type() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(type, 500);
+        });
+    </script>
 
 </body>
 </html>
+
